@@ -3,7 +3,9 @@
 
 # Indice:
 1. [Crear y configurar VPN Skytap](#1-crear-y-configurar-vpn-skytap).
+
 1.1. [Crear IP Pública estática](#1.1.-crear-ip-pública-estática).
+
 1.2. [Crear una VPN](#1.2.-crear-una-vpn).
 
 
