@@ -45,6 +45,7 @@ En los parámetros de Fase 1 y 2, se modifican de la siguiente manera:
 - **Group DH**: modp1536
 - **Key Life (in seconds)**: 20000
 - **Phase 2 perfect forward secrecy (PFS)**: OFF 
+
 Las demás configuraciones se dejan por defecto como vienen.
 
 
