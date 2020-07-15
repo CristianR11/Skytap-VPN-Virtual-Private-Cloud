@@ -1,4 +1,4 @@
-# Skytap-VPN-Virtual-Private-Cloud
+# Skytap-VPN-Virtual-Private-Cloud :cloud:
 En esta guía aprenderá cómo crear una conexión VPN entre su cuenta de Skytap y una VPN dentro de una VPC en IBM. El propósto de las VPNs permitir la comunicación entre as máquinas virtuales de Skytap y un servidor virtual VSI, el cual está dentro de la VPC.
 
 
@@ -64,7 +64,7 @@ Agregue la **subred remota** (a la que pertenece la **VSI**, se le proporcionar�
 ## 2. Crear y configurar VPN for VPC
 
 
-## 3. Probar conexión entre VPNs.
+## 3. Probar conexión entre VPNs.:white_check_mark:
 
 Después de crear la conexión VPNs, pruébela con la herramienta de **Test WAN**.
 
@@ -78,4 +78,9 @@ Skytap realiza cuatro pruebas de conectividad y muestra los resultados, si apare
 
 A continuación, se muestra la prueba de conectividad entre ambas VPNs.
 
+
+
+## Autores.:woman: :man:
+
+IBM Cloud Tech Sales
 
