@@ -78,7 +78,14 @@ Skytap realiza cuatro pruebas de conectividad y muestra los resultados, si apare
 
 A continuación, se muestra la prueba de conectividad entre ambas VPNs.
 
+- Del lado de Skytap: accedemos a la máquina virtual y hacemos directamente ping a la IP privada del VSI de IBM.
+<img width="526" alt="1" src="https://user-images.githubusercontent.com/60628267/87592889-368d6000-c6b0-11ea-8902-709b8f1305cb.png">
 
+- Del lado de IBM:
+Se ingresa al VSI mediante ssh, usando el siguiente comando: ssh -i root@ip_flotante, hacemos ping a la máquina virtual de Skytap.
+<img width="408" alt="Sin título" src="https://user-images.githubusercontent.com/60628267/87592171-0abdaa80-c6af-11ea-93e0-0c446fd7d660.png">
+
+Observamos que para ambos casos la respuesta al ping es satisfactoria comprabando así que el intercambio de paquetes está seguro, puesto que se realizaron pruebas desde otro equipo excluido de las subredes incluidas y no es posible su acceso a las máquinas virtuales.
 
 ## Autores.:woman: :man:
 
