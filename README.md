@@ -10,7 +10,6 @@ En la sigiente guía se muestra el paso a paso para la configuración y creació
 1.2. [Crear una VPN](#1.2.-crear-una-vpn).
 
 
-
 ## 1. Crear y configurar VPN Skytap
 Acceda desde la consola de IBM al servicio de Skytap **Launch Skytap on IBM Cloud**, servicio que previamente debió adquirir.
 
@@ -34,32 +33,29 @@ Desde la barra de navegación, haga clic en **Manage -> WAN -> New VPN**. Se abr
 <img width="263" alt="img5" src="https://user-images.githubusercontent.com/60628267/86812143-4966bb80-c044-11ea-9f7a-174a6ee62603.PNG">
 
 Especificaciones de los parametros a configurar:
-- IBM subnet: Subred a la que pertenece la máquina virtual del ambiente sobre el que se está trabajando.
-- IBM Peer IP: IP Pública estática 
-- Remote peer IP: IP Pública del lado remoto, es la misma **Hosted Peer Address** que se configura en IPSec VPN. (Se configurará en los próximos pasos)
-- Preshared Key: Contraseña a disposición del usuario.
-- NAT: OFF (no se tendrán varias máquinas conectadas al mismo ambiente por lo que no es necesario tenerlo habilitado).
+- **IBM subnet**: Subred a la que pertenece la máquina virtual del ambiente sobre el que se está trabajando.
+- **IBM Peer IP**: IP Pública estática
+- **Remote peer IP**: IP Pública del lado remoto, es la misma **IP de pasarela** que se configura en VPC for VPN. (En los próximos pasos)
+- **Preshared Key**: Contraseña a disposición del usuario.
+- **NAT**: OFF (no se tendrán varias máquinas conectadas al mismo ambiente por lo que no es necesario tenerlo habilitado).
 
 En los parámetros de Fase 1 y 2, se modifican de la siguiente manera:
-- Phase encryption algorithm: aes 256 (este tipo de encriptación de alta seguridad)
-- Phase hash algorithm: sha256
-- Group DH: modp1536
-
-Para Fase 1:
-- Key Life (in seconds): 28800
-
-Para Fase 2:
-- Key Life (in seconds): 3600
-
-- Phase 2 perfect forward secrecy (PFS) : ON 
+- **Phase encryption algorithm**: aes 256 (este tipo de encriptación de alta seguridad)
+- **Phase hash algorithm: sha256
+- **Group DH**: modp1536
+- **Key Life (in seconds)**: 20000
+- **Phase 2 perfect forward secrecy (PFS)**: OFF 
 Las demás configuraciones se dejan por defecto como vienen.
 
 
-Una vez realizada esta configuración se procede a la creación y configuración de IPSec VPN, en donde se obtendrán los parámetros necesarios para terminar esta configuración en Skytap, pero antes de eso, al guardar la configuración realizada le aparecerá en pantalla todos los detalles de la VPN. Al lado izquierdo encontrará un recuadro, tal como se muestra en la imagen a continuación.
+Una vez realizada esta configuración se procede a la creación y configuración de la VPN for VPC dentro de IBM, en donde se obtendrán los parámetros necesarios para terminar esta configuración en Skytap, pero antes de eso, al guardar la configuración realizada le aparecerá en pantalla todos los detalles de la VPN. Al lado izquierdo encontrará un recuadro, tal como se muestra en la imagen a continuación.
 
 <img width="294" alt="img9" src="https://user-images.githubusercontent.com/60628267/86848768-3966d000-c074-11ea-8f90-ae46753b7a6f.PNG">
  
-Agregue la subred remota (**Hosted Private Subnets**, se le proporcionará en el próximo paso), también agregue la subred a la que pertenece la **Remote Peer IP** que acaba de configurar.
+Agregue la **subred remota** (a la que pertenece la **VSI**, se le proporcionará en el próximo paso como **Subredes locales** en la configuración de la VPN para VPC), también agregue la subred a la que pertenece la **Remote Peer IP** que acaba de configurar.
+
+
+
 
 ## 2. Crear y configurar una VPN for VPC en IBM 
 
@@ -100,20 +96,33 @@ Una vez se ha creado la nueva pasarela vpn y la nueva conexión VPN, se nos debe
 para mas información visite: https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-creating-a-vpc-using-the-ibm-cloud-console#creating-a-vpn
 
 
-## 3. Probar conexión entre VPNs.
+
+## 3. Probar conexión entre VPNs.:white_check_mark:
 
 Después de crear la conexión VPNs, pruébela con la herramienta de **Test WAN**.
 
 <img width="406" alt="img10" src="https://user-images.githubusercontent.com/60628267/86849883-f7d72480-c075-11ea-9de5-9be4d5be12a2.PNG">
 
-Ingrese una dirección IP y un número de puerto remoto desde una máquina en una de las subredes remotas incluidas. Idealmente, ingrese la dirección IP de una máquina que pueda responder a pings.
+Ingrese una dirección IP y un número de puerto remoto desde una máquina en una de las subredes remotas incluidas. Idealmente, ingrese la dirección IP del VSI de IBM el cual puede responder a pings.
 
 <img width="306" alt="img11" src="https://user-images.githubusercontent.com/60628267/86850111-543a4400-c076-11ea-85ff-88da9215e2c5.PNG">
 
 Skytap realiza cuatro pruebas de conectividad y muestra los resultados, si aparecen tal como se muestra a continuación estas correctamente configuradas las dos VPN y se estan comunicando entre sí. Una vez obtenido este resultado, habilite la VPN, haciendo clic en **Enable**.
 
+A continuación, se muestra la prueba de conectividad entre ambas VPNs.
 
+- Del lado de Skytap: accedemos a la máquina virtual y hacemos directamente ping a la IP privada del VSI de IBM.
+<img width="526" alt="1" src="https://user-images.githubusercontent.com/60628267/87592889-368d6000-c6b0-11ea-8902-709b8f1305cb.png">
 
+- Del lado de IBM:
+Se ingresa al VSI mediante ssh, usando el siguiente comando: ssh -i root@ip_flotante, hacemos ping a la máquina virtual de Skytap.
+<img width="408" alt="Sin título" src="https://user-images.githubusercontent.com/60628267/87592171-0abdaa80-c6af-11ea-93e0-0c446fd7d660.png">
+
+Observamos que para ambos casos la respuesta al ping es satisfactoria comprabando así que el intercambio de paquetes está seguro, puesto que se realizaron pruebas desde otro equipo excluido de las subredes incluidas y no es posible su acceso a las máquinas virtuales.
+
+## Autores.:woman: :man:
+
+IBM Cloud Tech Sales
 
 
 
