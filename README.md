@@ -1,4 +1,4 @@
-# Skytap-VPN-Virtual-Private-Cloud :cloud:
+# Skytap-VPN-Virtual-Private-Cloud :closed_lock_with_key:
 
 En la sigiente guía se muestra el paso a paso para la configuración y creación de una VPN en Skytap y una VPN for VPC en IBM Cloud con el objetivo de establecer la conexión entre una maquina virutal (VM) alojada en Skytap y un virtual server (VSI) alojado en una Virtual Private Cloud (VPC)  de IBM.
 
