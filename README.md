@@ -34,8 +34,8 @@ Desde la barra de navegación, haga clic en **Manage -> WAN -> New VPN**. Se abr
 
 Especificaciones de los parametros a configurar:
 - IBM subnet: Subred a la que pertenece la máquina virtual del ambiente sobre el que se está trabajando.
-- IBM Peer IP: IP Pública estática 
-- Remote peer IP: IP Pública del lado remoto, es la misma **Hosted Peer Address** que se configura en IPSec VPN. (Se configurará en los próximos pasos)
+- IBM Peer IP: IP Pública estática
+- Remote peer IP: IP Pública del lado remoto, es la misma **IP de pasarela** que se configura en VPC for VPN. (En los próximos pasos)
 - Preshared Key: Contraseña a disposición del usuario.
 - NAT: OFF (no se tendrán varias máquinas conectadas al mismo ambiente por lo que no es necesario tenerlo habilitado).
 
@@ -43,14 +43,8 @@ En los parámetros de Fase 1 y 2, se modifican de la siguiente manera:
 - Phase encryption algorithm: aes 256 (este tipo de encriptación de alta seguridad)
 - Phase hash algorithm: sha256
 - Group DH: modp1536
-
-Para Fase 1:
-- Key Life (in seconds): 28800
-
-Para Fase 2:
-- Key Life (in seconds): 3600
-
-- Phase 2 perfect forward secrecy (PFS) : ON 
+- Key Life (in seconds): 20000
+- Phase 2 perfect forward secrecy (PFS) : OFF 
 Las demás configuraciones se dejan por defecto como vienen.
 
 
@@ -58,4 +52,4 @@ Una vez realizada esta configuración se procede a la creación y configuración
 
 <img width="294" alt="img9" src="https://user-images.githubusercontent.com/60628267/86848768-3966d000-c074-11ea-8f90-ae46753b7a6f.PNG">
  
-Agregue la subred remota (**Hosted Private Subnets**, se le proporcionará en el próximo paso), también agregue la subred a la que pertenece la **Remote Peer IP** que acaba de configurar.
+Agregue la **subred remota** (a la que pertenece la **VSI**, se le proporcionará en el próximo paso como **Subredes locales** en la configuración de la VPN para VPC), también agregue la subred a la que pertenece la **Remote Peer IP** que acaba de configurar.
