@@ -1,4 +1,4 @@
-# Skytap-VPN-Virtual-Private-Cloud
+# Skytap-VPN-Virtual-Private-Cloud :cloud:
 
 En la sigiente guía se muestra el paso a paso para la configuración y creación de una VPN en Skytap y una VPN for VPC en IBM Cloud con el objetivo de establecer la conexión entre una maquina virutal (VM) alojada en Skytap y un virtual server (VSI) alojado en una Virtual Private Cloud (VPC)  de IBM.
 
@@ -41,7 +41,7 @@ Especificaciones de los parametros a configurar:
 
 En los parámetros de Fase 1 y 2, se modifican de la siguiente manera:
 - **Phase encryption algorithm**: aes 256 (este tipo de encriptación de alta seguridad)
-- **Phase hash algorithm: sha256
+- **Phase hash algorithm**: sha256
 - **Group DH**: modp1536
 - **Key Life (in seconds)**: 20000
 - **Phase 2 perfect forward secrecy (PFS)**: OFF 
